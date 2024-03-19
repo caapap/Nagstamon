@@ -33,7 +33,7 @@ python -m pip install --upgrade pip -i https://pypi.mirrors.ustc.edu.cn/simple/
 - 安装pip包
 
 ```shell
-  pip3 install -r build/requirements/windows.txt -i https://pypi.mirrors.ustc.edu.cn/simple/
+pip3 install -r build/requirements/windows.txt -i https://pypi.mirrors.ustc.edu.cn/simple/
 ```
 
 ## 使用方法

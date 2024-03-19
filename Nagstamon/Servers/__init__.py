@@ -53,6 +53,7 @@ from Nagstamon.Servers.SnagView3 import SnagViewServer
 from Nagstamon.Servers.Sensu import SensuServer
 from Nagstamon.Servers.SensuGo import SensuGoServer
 from Nagstamon.Servers.Prometheus import PrometheusServer
+from Nagstamon.Servers.N9e import N9eServer 
 from Nagstamon.Servers.Alertmanager import AlertmanagerServer
 
 from Nagstamon.Config import conf
@@ -211,7 +212,7 @@ def create_server(server=None):
     # Zabbix
     new_server.use_description_name_service = server.use_description_name_service
 
-    # Prometheus & Alertmanager
+    # Prometheus & Alertmanager & N9e
     new_server.alertmanager_filter = server.alertmanager_filter
     new_server.map_to_hostname = server.map_to_hostname
     new_server.map_to_servicename = server.map_to_servicename
@@ -255,6 +256,7 @@ servers_list = [AlertmanagerServer,
                 Op5MonitorServer,
                 OpsviewServer,
                 PrometheusServer,
+                N9eServer,
                 SensuGoServer,
                 SensuServer,
                 SnagViewServer,

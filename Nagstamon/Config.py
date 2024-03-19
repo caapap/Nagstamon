@@ -42,6 +42,7 @@ if platform.system() == 'Linux':
 if KEYRING:
     import keyring
 
+
 # instead of calling platform.system() every now and then just do it once here
 OS = platform.system()
 # needed when OS-specific decisions have to be made, mostly Linux/non-Linux
@@ -80,6 +81,7 @@ if not os.environ.get('QT_QPA_PLATFORMTHEME'):
 # maybe not the most logical place here to be defined but at least all
 # modules access Config.py so it can be distributed from here
 debug_queue = list()
+
 
 # temporary dict for string-to-bool-conversion
 # the bool:bool relations are thought to make things easier in Dialog_Settings.ok()
@@ -968,13 +970,13 @@ class Server(object):
         # Sensu/Uchiwa/??? Datacenter/Site config
         self.monitor_site = 'Site 1'
 
-        # Zabbix "Item Description" as "Service Name"
+        # Zabbix "Item Description" as "Service NamSe"
         self.use_description_name_service = False
 
-        # Prometheus/Alertmanager mappings
-        self.map_to_hostname = "pod_name,namespace,instance"
-        self.map_to_servicename = "alertname"
-        self.map_to_status_information = "message,summary,description"
+        # Prometheus/Alertmanager/N9e
+        self.map_to_hostname = "cluster,group_name,pod_name,namespace,instance"
+        self.map_to_servicename = "rule_name,alertname"
+        self.map_to_status_information = "chsDesc,summary,description,message"
         # Alertmanager mappings
         self.alertmanager_filter = ''
         self.map_to_critical = 'critical,error'
@@ -989,6 +991,8 @@ class Server(object):
 
         # Thruk
         self.disabled_backends = ""
+
+
 
 class Action(object):
     """

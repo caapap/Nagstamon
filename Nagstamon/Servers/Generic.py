@@ -1,21 +1,3 @@
-# encoding: utf-8
-
-# Nagstamon - Nagios status monitor for your desktop
-# Copyright (C) 2008-2024 Henri Wahl <henri@nagstamon.de> et al.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 from collections import OrderedDict
 import copy
@@ -226,49 +208,6 @@ class GenericServer(object):
 
         # macOS pyinstaller onefile conglomerate tends to lose cacert.pem due to macOS temp folder cleaning
         self.cacert_path = self.cacert_content = False
-        if OS == OS_MACOS:
-            # trying to find root path when run by pyinstaller onefile, must be something like
-            # /var/folders/7w/hfvrg7v92x3gjt95cqh974240000gn/T/_MEIQ3l3u3
-            root_path = Path(RESOURCES).parent.parent
-            if root_path.joinpath('certifi').is_dir() and root_path.joinpath('certifi', 'cacert.pem').is_file():
-                # store path of cacert...
-                self.cacert_path = root_path.joinpath('certifi', 'cacert.pem')
-                # ...and its content
-                with open(self.cacert_path, mode='rb') as file:
-                    self.cacert_content = file.read()
-
-        # Special FX
-        # Centreon
-        self.use_autologin = False
-        self.autologin_key = ''
-        # Icinga
-        self.use_display_name_host = False
-        self.use_display_name_service = False
-        # Checkmk Multisite
-        self.force_authuser = False
-
-        # OP5 api filters
-        self.host_filter = 'state !=0'
-        self.service_filter = 'state !=0 or host.state != 0'
-
-        # Opsview hashtag filter
-        self.hashtag_filter = ''
-
-        # Opsview can_change_only option
-        self.can_change_only = False
-
-        # Sensu/Uchiwa/??? Datacenter/Site config
-        self.monitor_site = 'Site 1'
-
-        # Zabbix
-        self.use_description_name_service = None
-
-        # IcingaDBWebNotifications
-        self.notification_filter = None
-        self.notification_lookback = None
-
-        # Thruk
-        self.disabled_backends = None
 
     def init_config(self):
         '''

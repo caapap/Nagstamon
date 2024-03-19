@@ -5799,12 +5799,12 @@ class Dialog_Server(Dialog):
             self.window.input_checkbox_can_change_only: ['Opsview'],
             self.window.label_monitor_site: ['Sensu'],
             self.window.input_lineedit_monitor_site: ['Sensu'],
-            self.window.label_map_to_hostname: ['Prometheus', 'Alertmanager'],
-            self.window.input_lineedit_map_to_hostname: ['Prometheus', 'Alertmanager'],
-            self.window.label_map_to_servicename: ['Prometheus', 'Alertmanager'],
-            self.window.input_lineedit_map_to_servicename: ['Prometheus', 'Alertmanager'],
-            self.window.label_map_to_status_information: ['Prometheus', 'Alertmanager'],
-            self.window.input_lineedit_map_to_status_information: ['Prometheus', 'Alertmanager'],
+            self.window.label_map_to_hostname: ['Prometheus', 'Alertmanager', 'N9e'],
+            self.window.input_lineedit_map_to_hostname: ['Prometheus', 'Alertmanager', 'N9e'],
+            self.window.label_map_to_servicename: ['Prometheus', 'Alertmanager', 'N9e'],
+            self.window.input_lineedit_map_to_servicename: ['Prometheus', 'Alertmanager', 'N9e'],
+            self.window.label_map_to_status_information: ['Prometheus', 'Alertmanager' , 'N9e'],
+            self.window.input_lineedit_map_to_status_information: ['Prometheus', 'Alertmanager', 'N9e'],
             self.window.label_alertmanager_filter: ['Alertmanager'],
             self.window.input_lineedit_alertmanager_filter: ['Alertmanager'],
             self.window.label_map_to_ok: ['Alertmanager'],
@@ -6387,18 +6387,19 @@ class Dialog_Acknowledge(Dialog):
         }
 
         # still clumsy but better than negating the other server types
-        PROMETHEUS_OR_ALERTMANAGER = ['Alertmanager',
-                                      'Prometheus']
-        NOT_PROMETHEUS_OR_ALERTMANAGER = [x.TYPE for x in SERVER_TYPES.values() if
-                                          x.TYPE not in PROMETHEUS_OR_ALERTMANAGER]
+        PROMETHEUS_OR_ALERTMANAGER_OR_N9E = ['Alertmanager',
+                                      'Prometheus',
+                                      'N9e']
+        NOT_PROMETHEUS_OR_ALERTMANAGER_OR_N9E = [x.TYPE for x in SERVER_TYPES.values() if
+                                          x.TYPE not in PROMETHEUS_OR_ALERTMANAGER_OR_N9E]
 
         self.VOLATILE_WIDGETS = {
             self.window.input_checkbox_use_expire_time: ['IcingaWeb2'],
             self.window.input_datetime_expire_time: ['IcingaWeb2', 'Alertmanager'],
-            self.window.input_checkbox_sticky_acknowledgement: NOT_PROMETHEUS_OR_ALERTMANAGER,
-            self.window.input_checkbox_send_notification: NOT_PROMETHEUS_OR_ALERTMANAGER,
-            self.window.input_checkbox_persistent_comment: NOT_PROMETHEUS_OR_ALERTMANAGER,
-            self.window.input_checkbox_acknowledge_all_services: NOT_PROMETHEUS_OR_ALERTMANAGER
+            self.window.input_checkbox_sticky_acknowledgement: NOT_PROMETHEUS_OR_ALERTMANAGER_OR_N9E,
+            self.window.input_checkbox_send_notification: NOT_PROMETHEUS_OR_ALERTMANAGER_OR_N9E,
+            self.window.input_checkbox_persistent_comment: NOT_PROMETHEUS_OR_ALERTMANAGER_OR_N9E,
+            self.window.input_checkbox_acknowledge_all_services: NOT_PROMETHEUS_OR_ALERTMANAGER_OR_N9E
         }
 
         self.FORCE_DATETIME_EXPIRE_TIME = ['Alertmanager']

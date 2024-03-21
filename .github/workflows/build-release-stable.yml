@@ -2,6 +2,7 @@ name: build-release-stable
 on:
   push:
     tags: 'v*'
+  workflow_dispatch:
 
 env:
   python_win_version: 3.11.8

@@ -972,9 +972,9 @@ class Server(object):
         self.use_description_name_service = False
 
         # Prometheus/Alertmanager mappings
-        self.map_to_hostname = "pod_name,namespace,instance"
-        self.map_to_servicename = "alertname"
-        self.map_to_status_information = "message,summary,description"
+        self.map_to_hostname = "cluster,group_name,pod_name,namespace,instance"
+        self.map_to_servicename = "rule_name,alertname"
+        self.map_to_status_information = "chsDesc,summary,description,message"
         # Alertmanager mappings
         self.alertmanager_filter = ''
         self.map_to_critical = 'critical,error'

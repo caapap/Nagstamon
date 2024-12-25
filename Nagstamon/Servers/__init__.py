@@ -48,7 +48,7 @@ from Nagstamon.Servers.Sensu import SensuServer
 from Nagstamon.Servers.SensuGo import SensuGoServer
 from Nagstamon.Servers.Prometheus import PrometheusServer
 from Nagstamon.Servers.Alertmanager import AlertmanagerServer
-
+from Nagstamon.Servers.Stellar import StellarServer
 from Nagstamon.Config import conf
 
 from Nagstamon.Helpers import STATES
@@ -202,7 +202,7 @@ def create_server(server=None):
     # Zabbix
     new_server.use_description_name_service = server.use_description_name_service
 
-    # Prometheus & Alertmanager
+    # Prometheus & Alertmanager & Stellar
     new_server.alertmanager_filter = server.alertmanager_filter
     new_server.map_to_hostname = server.map_to_hostname
     new_server.map_to_servicename = server.map_to_servicename
@@ -253,7 +253,8 @@ servers_list = [AlertmanagerServer,
                 ThrukServer,
                 ZabbixProblemBasedServer,
                 ZabbixServer,
-                ZenossServer]
+                ZenossServer,
+                StellarServer]
 
 for server in servers_list:
     register_server(server)

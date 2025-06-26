@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 # Nagstamon - Nagios status monitor for your desktop
-# Copyright (C) 2008-2024 Henri Wahl <henri@nagstamon.de> et al.
+# Copyright (C) 2008-2025 Henri Wahl <henri@nagstamon.de> et al.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@ import urllib.request, urllib.parse, urllib.error
 import time
 import copy
 import html
+import tzlocal
 from datetime import datetime
-from zoneinfo import ZoneInfo
 
 from Nagstamon.Objects import (GenericHost,
                                GenericService,
@@ -551,8 +551,8 @@ class MultisiteServer(GenericServer):
             }
 
             # Only timezone aware dates are allowed
-            iso_start_time =  datetime.strptime(start_time, "%Y-%m-%d %H:%M").replace(tzinfo=ZoneInfo('localtime')).isoformat()
-            iso_end_time =  datetime.strptime(end_time, "%Y-%m-%d %H:%M").replace(tzinfo=ZoneInfo('localtime')).isoformat()
+            iso_start_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M").replace(tzinfo=tzlocal.get_localzone()).isoformat()
+            iso_end_time = datetime.strptime(end_time, "%Y-%m-%d %H:%M").replace(tzinfo=tzlocal.get_localzone()).isoformat()
             # Set parameters for host downtimes
             url = self.urls["omd_host_downtime"]
             params = {
@@ -650,7 +650,8 @@ class MultisiteServer(GenericServer):
         # since Checkmk 2.0 it seems to be a problem if service is empty so fill it with a definitively existing one
         if not service:
             service = "PING"
-        csrf_token = self.fetch_url(self.urls["transid"].replace("$HOST$", host).replace("$SERVICE$", service.replace(" ", "+")), "obj").result.find(attrs={"name": "csrf_token"})["value"]
+        csrf_token = self.fetch_url(self.urls["transid"].replace("$HOST$", host).replace("$SERVICE$", service.replace(" ", "+")),
+                                    "obj").result.find(attrs={"name": ["csrf_token", "_csrf_token"]})["value"]
         return csrf_token
 
 

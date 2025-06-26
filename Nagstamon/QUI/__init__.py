@@ -1,6 +1,6 @@
 # encoding: utf-8
 # Nagstamon - Nagios status monitor for your desktop
-# Copyright (C) 2008-2024 Henri Wahl <henri@nagstamon.de> et al.
+# Copyright (C) 2008-2025 Henri Wahl <henri@nagstamon.de> et al.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,7 +40,6 @@ from Nagstamon.Config import (Action,
                               conf,
                               CONFIG_STRINGS,
                               debug_queue,
-                              DESKTOP_NEEDS_FIX,
                               KEYRING,
                               OS_NON_LINUX,
                               OS,
@@ -142,9 +141,9 @@ if QT_VERSION_MAJOR < 6:
 APP = QApplication(sys.argv)
 
 # as long as Windows 11 + Qt6 looks that ugly it's better to choose another app style
-# might be mitigated with Qt 6.5.3, so commented out now
-#if OS == OS_WINDOWS and platform.release() >= '11':
-#    APP.setStyle('fusion')
+# might be mitigated with sometimes, so commented out now
+if OS == OS_WINDOWS and platform.release() >= '11':
+    APP.setStyle('fusion')
 
 # fixed shortened and lowered color names for cells, also used by statusbar label snippets
 COLORS = OrderedDict([('DOWN', 'color_down_'),
@@ -317,9 +316,12 @@ class SystemTrayIcon(QSystemTrayIcon):
     error_shown = False
 
     def __init__(self):
+        # debug environment variables
         if conf.debug_mode:
-            debug_queue.append('DEBUG: Initializing SystemTrayIcon')
+            for environment_key, environment_value in os.environ.items():
+                debug_queue.append(f'DEBUG: Environment variable: {environment_key}={environment_value}')
 
+        # initialize systray icon
         QSystemTrayIcon.__init__(self)
 
         # icons are in dictionary
@@ -332,8 +334,6 @@ class SystemTrayIcon(QSystemTrayIcon):
         # default icon is OK
         if conf.icon_in_systray:
             self.setIcon(self.icons['OK'])
-        if conf.debug_mode:
-            debug_queue.append('DEBUG: SystemTrayIcon initial icon: {}'.format(self.currentIconName()))
 
         # store icon for flashing
         self.current_icon = None
@@ -4347,8 +4347,9 @@ class TreeView(QTreeView):
                         for service in status[1]:
                             if conf.debug_mode:
                                 self.server.debug(server=self.server.name,
-                                                  debug='Rechecking service {0} on host {1}'.format(service.name,
-                                                                                                    service.host))
+                                                  debug='Rechecking service {0} on host {1}'.format(
+                                                        service.get_service_name(),
+                                                        service.host))
                             # call server recheck method
                             self.server.set_recheck({'host': service.host, 'service': service.name})
                     del (nagitems_filtered, status)
@@ -5333,7 +5334,7 @@ class Dialog_Settings(Dialog):
             del (row, count)
 
         # delete server config file from disk
-        conf.delete_file('servers', 'server_{0}.conf'.format(quote(server.name)))
+        conf.delete_file('servers', 'server_{0}.conf'.format(quote(server.name, safe='')))
         del server
 
     def refresh_list(self, list_widget, list_conf, current=''):
@@ -5407,7 +5408,7 @@ class Dialog_Settings(Dialog):
             del (row, count)
 
         # delete action config file from disk
-        conf.delete_file('actions', 'action_{0}.conf'.format(quote(action.name)))
+        conf.delete_file('actions', 'action_{0}.conf'.format(quote(action.name, safe='')))
         del action
 
     def choose_sound_file_decoration(method):
@@ -6157,7 +6158,7 @@ class Dialog_Server(Dialog):
             # delete old server .conf file to reflect name changes
             # new one will be written soon
             if self.previous_server_conf is not None:
-                conf.delete_file('servers', 'server_{0}.conf'.format(quote(self.previous_server_conf.name)))
+                conf.delete_file('servers', 'server_{0}.conf'.format(quote(self.previous_server_conf.name, safe='')))
 
             # store server settings
             conf.SaveMultipleConfig('servers', 'server')
@@ -6377,7 +6378,7 @@ class Dialog_Action(Dialog):
             # delete old action .conf file to reflect name changes
             # new one will be written soon
             if self.previous_action_conf is not None:
-                conf.delete_file('actions', 'action_{0}.conf'.format(quote(self.previous_action_conf.name)))
+                conf.delete_file('actions', 'action_{0}.conf'.format(quote(self.previous_action_conf.name, safe='')))
 
             # store server settings
             conf.SaveMultipleConfig('actions', 'action')

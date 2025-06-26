@@ -4,7 +4,7 @@ import sys
 import time
 import logging
 import requests
-from pkg_resources import parse_version
+from packaging import version
 
 from Nagstamon.Helpers import HumanReadableDurationFromTimestamp
 from Nagstamon.Config import conf
@@ -162,7 +162,11 @@ class ZabbixProblemBasedServer(GenericServer):
 
             #Get all current problems (trigger based), no need to check acknowledged problems if they are filtered out (load reduce)
             if conf.filter_acknowledged_hosts_services:
-                problems = self.zlapi.do_request("problem.get", {'recent': False, 'acknowledged': False})
+                # old versions doesnt support suppressed problems
+                if version.parse(self.zbx_version) < version.parse("6.2.0"):
+                    problems = self.zlapi.do_request("problem.get", {'recent': False, 'acknowledged': False})
+                else:
+                    problems = self.zlapi.do_request("problem.get", {'recent': False, 'acknowledged': False, 'suppressed': False})
             else:
                 problems = self.zlapi.do_request("problem.get", {'recent': False})
 
@@ -200,7 +204,7 @@ class ZabbixProblemBasedServer(GenericServer):
                         self.new_hosts[host_id].scheduled_downtime = True
 
                     #old api shows host interfaces status in host object
-                    if parse_version(self.zbx_version) < parse_version("5.4.0"):
+                    if version.parse(self.zbx_version) < version.parse("5.4.0"):
 
                         #host not available via agent
                         if trigger[0]['hosts'][0].get('available', '0') == "2":

@@ -3,7 +3,6 @@ beautifulsoup4
 dbus-python
 keyring
 lxml
-packaging
 psutil
 pyqt6
 pyqt6-qt6
@@ -13,4 +12,3 @@ requests
 requests-kerberos
 requests-ecp
 setuptools
-tzlocal

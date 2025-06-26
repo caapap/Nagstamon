@@ -36,7 +36,7 @@ nagstamon (3.10.1) stable; urgency=low
     - fixes Centreon flapping bug
     - fixes Kubuntu 20.04 not starting bug
 
- -- Henri Wahl <henri@nagstamon.de> Fri, Nov 04 2022 08:00:00 +0100
+ -- Henri Wahl <henri@nagstamon.de> Fri, 04 Nov 2022 08:00:00 +0100
 
 nagstamon (3.10.0) stable; urgency=low
   * New upstream
@@ -49,7 +49,7 @@ nagstamon (3.10.0) stable; urgency=low
     - fixes for TLS
     - fixes for Checkmk
 
- -- Henri Wahl <henri@nagstamon.de> Thu, Oct 27 2022 08:00:00 +0100
+ -- Henri Wahl <henri@nagstamon.de> Thu, 27 Oct 2022 08:00:00 +0100
 
 nagstamon (3.8.0) stable; urgency=low
   * New upstream
@@ -61,7 +61,7 @@ nagstamon (3.8.0) stable; urgency=low
     - Zabbix fixes
     - dependency updates
 
- -- Henri Wahl <henri@nagstamon.de> Mon, Nov 15 2021 19:00:00 +0100
+ -- Henri Wahl <henri@nagstamon.de> Mon, 15 Nov 2021 19:00:00 +0100
 
 nagstamon (3.6.0) stable; urgency=low
   * New upstream
@@ -79,7 +79,7 @@ nagstamon (3.6.0) stable; urgency=low
    - fix for HighDPI
    - fix for distro detection
 
- -- Henri Wahl <henri@nagstamon.de> Sun, Apr 05 2021 17:00:00 +0100
+ -- Henri Wahl <henri@nagstamon.de> Sun, 05 Apr 2021 17:00:00 +0100
 
 nagstamon (3.4.1) stable; urgency=low
   * New upstream
@@ -95,44 +95,44 @@ nagstamon (3.4.1) stable; urgency=low
 
 nagstamon (3.4) stable; urgency=low
   * New upstream
-   - added multiple item selection and actions execution
-   - added notification for OK state
-   - added darkmode for macOS
-   - added option to copy service to clipboard
-   - added support for custom CA cert for Sensu/Uchiwa
-   - added support for IcingaWeb2 expire time
-   - added server encoding detection
-   - updated components
-   - fixed crash when selecting downtime on down host
-   - fixed settings filenames troubles by url-encoding them
-   - fixed pyinstaller onefile issues on macOS
-   - fixed Kerberos issues on macOS
-   - fixed Cinnamon systray/popup issue
-   - Centreon fixes
-   - Checkmk fixes
-   - IcingaWeb2 fixes
-   - Monitos4x fixes
-   - op5Monitor fixes
-   - Sensu fixes
+    - added multiple item selection and actions execution
+    - added notification for OK state
+    - added darkmode for macOS
+    - added option to copy service to clipboard
+    - added support for custom CA cert for Sensu/Uchiwa
+    - added support for IcingaWeb2 expire time
+    - added server encoding detection
+    - updated components
+    - fixed crash when selecting downtime on down host
+    - fixed settings filenames troubles by url-encoding them
+    - fixed pyinstaller onefile issues on macOS
+    - fixed Kerberos issues on macOS
+    - fixed Cinnamon systray/popup issue
+    - Centreon fixes
+    - Checkmk fixes
+    - IcingaWeb2 fixes
+    - Monitos4x fixes
+    - op5Monitor fixes
+    - Sensu fixes
 
- -- Henri Wahl <h.wahl@ifw-dresden.de> Wed, 25 Dec 2019 10:00:00 +0100
+-- Henri Wahl <h.wahl@ifw-dresden.de> Fri, 20 Dec 2019 10:00:00 +0100
 
 nagstamon (3.2.1) stable; urgency=low
   * New upstream
-   - fixed macOS system tray icon crash
+    - fixed macOS system tray icon crash
 
- -- Henri Wahl <h.wahl@ifw-dresden.de> Mon, 7 Jan 2019 10:00:00 +0100
+-- Henri Wahl <h.wahl@ifw-dresden.de> Mon, 7 Jan 2019 10:00:00 +0100
 
 nagstamon (3.2) stable; urgency=low
   * New upstream
-   - new Zabbix backend
-   - added Sensu/Uchiwa changes
-   - fixed Opsview/Nagios duration counter
-   - fixed Centreon new versions
-   - fixed non-closing floating statusbar
-   - fixed certain custom notification action bugs
-   - fixed certain keyring bugs
-   - fixed macOS Retina support
+    - new Zabbix backend
+    - added Sensu/Uchiwa changes
+    - fixed Opsview/Nagios duration counter
+    - fixed Centreon new versions
+    - fixed non-closing floating statusbar
+    - fixed certain custom notification action bugs
+    - fixed certain keyring bugs
+    - fixed macOS Retina support
 
  -- Henri Wahl <h.wahl@ifw-dresden.de> Wed, 19 Dec 2018 22:00:00 +0100
 
@@ -196,7 +196,7 @@ nagstamon (2.0) stable; urgency=low
    - No or less memory leaks, especially in Windows
    - Make sure only one instance per config is running
 
- -- Henri Wahl <h.wahl@ifw-dresden.de>  Mon, 29 Aug 2016 16:00:00 +0200
+-- Henri Wahl <h.wahl@ifw-dresden.de> Mon, 29 Aug 2016 16:00:00 +0200
 
 nagstamon (1.0.1) stable; urgency=low
 

@@ -34,7 +34,9 @@ jobs:
         pip install -r build/requirements/linux.txt
         pip install pylint
     - name: Test with unittest
-      run: python -m unittest tests/test_*.py
+      run: |
+        export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
+        python -m unittest tests/test_*.py
 
   windows-32:
     runs-on: windows-2022

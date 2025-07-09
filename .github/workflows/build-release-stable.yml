@@ -1,7 +1,10 @@
 name: build-release-stable
 on:
   push:
-    tags: 'v*'
+    tags: 
+      - 'v*'
+    branches:
+      - stellar
 
 env:
   python_win_version: 3.11.8

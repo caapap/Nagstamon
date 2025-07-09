@@ -1,7 +1,8 @@
 name: build-release-latest
 on:
   push:
-    tags-ignore: 'v*'
+    tags-ignore:
+      - 'v*'
     branches:
       - '**'
       - '!master'

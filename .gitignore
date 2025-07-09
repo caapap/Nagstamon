@@ -18,3 +18,8 @@ dist/
 nagstamon
 nagstamon.conf/
 nagstamon.egg-info/
+
+# 添加需要忽略的目录
+.specstory/
+build/dist/
+build/build/

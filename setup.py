@@ -157,5 +157,5 @@ setup(name=NAME,
       options=dict(build_exe=build_exe_options,
                    bdist_mac=bdist_mac_options,
                    bdist_dmg=bdist_dmg_options,
-                   bdist_rpm=bdist_rpm_options)
+                   bdist_rpm=bdist_rpm_options if OS not in ['Windows', 'Darwin'] else {})
       )

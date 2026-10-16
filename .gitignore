@@ -15,7 +15,10 @@ __pycache__/
 *~
 build/bdist*
 dist/
+# Built binary named nagstamon. On Windows (core.ignorecase=true) this also
+# matches the Nagstamon/ package directory, so re-include that directory.
 nagstamon
+!/Nagstamon/
 nagstamon.conf/
 nagstamon.egg-info/
 

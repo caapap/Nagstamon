@@ -13,6 +13,8 @@ PySocks
 python-dateutil
 requests
 requests-ecp
-requests-kerberos
+requests-kerberos==0.14.0
+pyspnego==0.10.2
+cryptography==3.4.8
 setuptools
 wheel

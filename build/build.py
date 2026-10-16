@@ -61,6 +61,9 @@ else:
     # also no need for filename suffix
     FILENAME_SUFFIX = ''
 
+# Win7 builds need a distinct artifact name from the current Windows build.
+FILENAME_SUFFIX += environ.get('NAGSTAMON_BUILD_SUFFIX', '')
+
 # when run by GitHub Actions with PFX and password as environment variables
 # signing will be done
 SIGNING = False
@@ -107,13 +110,16 @@ def winmain():
             except:
                 os.remove(file)
 
+    from importlib.util import find_spec
+    qt_flavor = 'PyQt6' if find_spec('PyQt6') else 'PyQt5'
+
     # now with pyinstaller - dev version is able to run with Python 3.6
-    subprocess.call(['{0}\\Scripts\\pyinstaller'.format(sys.base_prefix),
+    subprocess.check_call(['{0}\\Scripts\\pyinstaller'.format(sys.base_prefix),
                      '--noconfirm',
                      '--add-data=..\\Nagstamon/resources;resources',
                      '--icon=..\\Nagstamon\\resources\\nagstamon.ico',
                      '--name=Nagstamon',
-                     '--hidden-import=PyQt6.uic.plugins',
+                     f'--hidden-import={qt_flavor}.uic.plugins',
                      '--hidden-import=win32timezone',
                      GUI_MODE,
                      '..\\nagstamon.py'],
@@ -148,10 +154,10 @@ def winmain():
 
     if not DEBUG:
         # execute InnoSetup with many variables set by ISCC.EXE outside .iss file
-        subprocess.call([ISCC,
+        subprocess.check_call([ISCC,
                          r'/Dsource={0}'.format(DIR_BUILD_NAGSTAMON),
                          r'/Dversion_is={0}'.format(VERSION_IS),
-                         r'/Dversion={0}'.format(VERSION),
+                         r'/Dversion={0}'.format(VERSION + FILENAME_SUFFIX),
                          r'/Darch={0}'.format(ARCH),
                          r'/Darchs_allowed={0}'.format(ARCH_OPTS[ARCH][3]),
                          r'/Dresources={0}{1}resources'.format(DIR_BUILD_NAGSTAMON, os.sep),
